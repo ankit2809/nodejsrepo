@@ -9,7 +9,7 @@
     <div class = "jumbotron" >
         <h4 class="display-5">Tweets</h4>
         <br>
-        <input class = "form-control" placeholder="Find tweets">
+        <input id = "findkeyword" class = "form-control" placeholder="Find tweets">
         <br>
         <button id = "send" class = "btn btn-success">Search</button>
     </div>
@@ -21,10 +21,25 @@
 <script>
     $(() => {
         $("#send").click(()=> {
-            addMessages({name:'Ankit'})
+            var search_keyword = $("#findkeyword").val()
+            postMessages(search_keyword)
         })
+        getMessages()
     })
-function addMessages(message){
-    $("#messages").append(`<h3> ${message.name}</h3>`)
-}
+
+    function addMessages(message){
+        $("#messages").append(`<p> ${message}</p>`)
+        }
+
+    function getMessages(){
+        $.get('/listtweets', (data)=> {
+            data.forEach(addMessages)
+            })
+        }  
+
+    function postMessages(search_keyword){
+        $.post('/findtweets', {search_keyword})
+        $("#findkeyword").val('')
+        }
+
 </script>

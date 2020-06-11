@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : 'Anks2809',
-    database : 'transwords'
+    database : 'twitdb'
 });
 
 connection.connect(function(err) {
