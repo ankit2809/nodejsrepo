@@ -19,7 +19,7 @@ app.get('/optionlist',(req,res)=> {
     mysqlconn.query("select city from citymaster", (err, rows, fields) => {
         if (err) throw err;
           res.send(rows)
-          console.log(rows.cout)
+          console.log("Cities : " + rows.length)
         });
 })
 
@@ -41,7 +41,7 @@ app.get('/checktrends',(req,res)=> {
     mysqlconn.query(sql, (err, rows, fields) => {
         if (err) throw err;
           res.send(rows)
-          console.log("get request timestamp " )
+          console.log(rows.length + " rows fetched")
         });
 })
 
@@ -50,7 +50,7 @@ process.on('uncaughtException', function (error) {
  });
 
 app.post('/checktrends',(req,res)=> {
-   console.log("post request timestamp ")
+   
     var trend_location = req.body.city_selected
     mysqlconn.query("select woeid from citymaster where city=?", trend_location,function (err, rows, fields) {
         if (err) throw err;
@@ -76,7 +76,7 @@ app.post('/checktrends',(req,res)=> {
                 if (err) throw err;
             });
         }
-        console.log("DB entries updated")
+        //console.log("DB entries updated")
       }
     
   
