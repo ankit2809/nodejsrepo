@@ -13,9 +13,19 @@
         <br>
         <button id = "send" class = "btn btn-success">Search</button>
     </div>
-    <div id = "messages">
 
-    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Check Trends</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+        </select>
+      </div>
+
+<div id = "messages">
+
+</div>
 </div>
 
 <script>
@@ -24,11 +34,17 @@
             var search_keyword = $("#findkeyword").val()
             postMessages(search_keyword)
         })
+        
         getMessages()
+        reloadOptions()
+        $("#inputGroupSelect01").change(function (){
+            checkTrends($("#inputGroupSelect01 option:selected").text())
+            //alert($("#inputGroupSelect01 option:selected").text())
+        });
     })
 
     function addMessages(message){
-        $("#messages").append(`<p> ${message}</p>`)
+        $("#messages").append(`<p> ${message.keyword}:${message.created}:${message.text}</p>`)
         }
 
     function getMessages(){
@@ -36,10 +52,29 @@
             data.forEach(addMessages)
             })
         }  
+    
+    function reloadOptions(){
+        $.get('/optionlist', (data1)=> {
+            for (i=0;i<data1.length;i++)
+            $("#inputGroupSelect01").append('<option value="'+i+'">'+data1[i].city+'</option>')
+            })
+        }  
+
+    function addendOptions(option){
+            
+            //$("#inputGroupSelect01").append('<option value="'+i+'">'+option+'</option>')
+        }  
 
     function postMessages(search_keyword){
         $.post('/findtweets', {search_keyword})
         $("#findkeyword").val('')
         }
+
+    function checkTrends(city_selected){
+        $.post('/checktrends', {city_selected})
+        $("#messages").append(`<p> ` + city_selected + ` </p>`)
+        $("#inputGroupSelect01 option").prop("selected", false)
+        window.open('http://localhost:3010/checktrends')
+        }    
 
 </script>
