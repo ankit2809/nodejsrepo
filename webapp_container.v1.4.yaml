@@ -1,0 +1,31 @@
+apiVersion: 2018-02-01-preview
+location: westeurope
+name: twitwebapp
+properties:
+  containers:
+  - name: twitwebapp
+    properties:
+      environmentVariables: []
+      image: nodejswebapp.azurecr.io/twittertrendapp_v1.4:latest
+      ports:
+      - port: 8080
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 0.5
+  imageRegistryCredentials:
+  - server: nodejswebapp.azurecr.io
+    username: nodejswebapp
+    password: XAWAA86bfejf+b8oXHDQ0iw1ObrVr=4R
+  ipAddress:
+    dnsNameLabel: twittrend
+    fqdn: twittrend.westeurope.azurecontainer.io
+    ports:
+    - port: 8080
+      protocol: TCP
+    type: Public
+  osType: Linux
+  restartPolicy: OnFailure
+tags: {}
+type: Microsoft.ContainerInstance/containerGroups
