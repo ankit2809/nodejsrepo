@@ -49,12 +49,14 @@
 
     function getMessages(){
         $.get('/listtweets', (data)=> {
+            console.log("getmessage called")
             data.forEach(addMessages)
             })
         }  
     
     function reloadOptions(){
         $.get('/optionlist', (data1)=> {
+            console.log("reloadoptions called")
             for (i=0;i<data1.length;i++)
             $("#inputGroupSelect01").append('<option value="'+i+'">'+data1[i].city+'</option>')
             })

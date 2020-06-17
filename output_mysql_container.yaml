@@ -1,0 +1,42 @@
+apiVersion: 2018-06-01
+location: westeurope
+name: twitmysql
+properties:
+  containers:
+  - name: twitmysql
+    properties:
+      environmentVariables:
+        - name: 'MYSQL_ROOT_PASSWORD'
+          value: 'Anks2809' 
+      image: nodejswebapp.azurecr.io/mysql:latest
+      ports:
+      - port: 3306
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.0
+      volumeMounts:
+      - mountPath: /var/lib/mysql 
+        name: mysqldata11
+  imageRegistryCredentials:
+  - server: nodejswebapp.azurecr.io
+    username: nodejswebapp
+    password: XAWAA86bfejf+b8oXHDQ0iw1ObrVr=4R
+  ipAddress:
+    dnsNameLabel: twittrenddb
+    fqdn: twittrenddb.westeurope.azurecontainer.io
+    ports:
+    - port: 3306
+      protocol: TCP
+    type: Public
+  osType: Linux
+  restartPolicy: OnFailure
+  volumes:
+  - name: mysqldata11
+    azureFile:
+      sharename: mysqldata11
+      storageAccountName: mysqldata11
+      storageAccountKey: 9BR0c4SJ4s2cLkmX+kv7yUA95yuo4nd6SH3S8UOrDwyNnU0tkqLu6JwtTLpBXNMNsg3ihRXhE2TIWa1GoBGO9w==
+tags: {}
+type: Microsoft.ContainerInstance/containerGroups

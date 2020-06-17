@@ -1,5 +1,5 @@
 const express = require('express')
-var Twit = require('Twit')
+var Twit = require('twit')
 var config = require('./config.js')
 var mysqlconn = require('./mysqldb.js')
 require('log-timestamp');
